@@ -1,0 +1,11 @@
+@import "theme";
+@import "libraries";
+@import "custom";
+
+.dark-mode {
+  @import "theme";
+  @import "dark_theme";
+  @import "libraries";
+  @import "bootswatch";
+  @import "custom_dark";
+}
