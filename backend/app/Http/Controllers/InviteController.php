@@ -7,7 +7,7 @@ use JingBh\AutoZP\InviteCode;
 class InviteController extends Controller
 {
     public function verify(Request $request) {
-        $code = $request->post("code");
+        $code = $request->post("code", InviteCode::getFromCookie());
         $valid = InviteCode::isValid($code);
         if ($valid === true) InviteCode::saveToCookie($code);
         return response()->json($valid);

@@ -18,10 +18,6 @@ table.table.text-nowrap {
   }
 }
 
-.hide {
-  display: none;
-}
-
 .limit-1 {
   max-width: 10rem !important;
 }
@@ -39,9 +35,4 @@ table.table.text-nowrap {
 #userAvatar {
   width: 4rem;
   border-radius: 0.4rem;
-}
-
-#userButtons {
-  margin-left: auto;
-  max-width: 20rem;
 }

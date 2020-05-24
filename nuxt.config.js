@@ -1,6 +1,12 @@
+require('dotenv').config()
+const webpack = require('webpack')
 
 export default {
   mode: 'spa',
+  env: {
+    "BASE_URL": "https://autozp.me",
+    "API_URL": "https://api.autozp.me"
+  },
   /*
   ** Headers of the page
   */
@@ -19,7 +25,7 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: {},
   /*
   ** Global CSS
   */
@@ -32,14 +38,12 @@ export default {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-  ],
+  plugins: [],
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
-    '@nuxt/typescript-build',
-    '@nuxtjs/color-mode'
+    '@nuxtjs/color-mode',
   ],
   /*
   ** Nuxt.js modules
@@ -58,6 +62,8 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: process.env["API_URL"],
+    credentials: true
   },
   /*
   ** Build configuration
@@ -66,10 +72,16 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
-    }
+    plugins: [
+      new webpack.ProvidePlugin({
+        "_": "lodash"
+      })
+    ]
   },
   pwa: {
+    workbox: {
+      preCaching: ["/offline"]
+    },
     manifest: {
       "name": "AutoZP - 一个极简综评客户端",
       "short_name": "AutoZP",
@@ -87,5 +99,8 @@ export default {
         }
       ]
     }
+  },
+  router: {
+    middleware: ["verifyInvite"]
   }
 }

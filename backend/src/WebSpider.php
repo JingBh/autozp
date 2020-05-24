@@ -3,6 +3,7 @@ namespace JingBh\AutoZP;
 
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
+use Throwable;
 
 class WebSpider
 {
@@ -147,7 +148,7 @@ class WebSpider
             if ($response->getStatusCode() == 200) {
                 return $response->getBody()->getContents();
             } else return null;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return null;
         }
     }

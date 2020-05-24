@@ -268,29 +268,34 @@ class AutoZPUser
      * @throws \Throwable
      */
     public static function login($username, $password, $flag=null, $validateCode=null) {
-        $user = Model::find($username);
-        if (filled($user) || InviteCode::isValid(null, true)) {
-            $token = Cache::get("autozp_token_{$username}");
-            if (blank($token)) {
-                if (filled($validateCode) && filled($flag)) {
-                    $response = WebSpider::login($username, $password, $flag, $validateCode);
-                } else $response = NoMoreValidateCode::getAndFuckIt($username, $password);
+        if (filled($username)) {
+            $user = Model::find($username);
+            if (filled($user) || InviteCode::isValid(null, true)) {
+                $token = Cache::get("autozp_token_{$username}");
+                if (blank($token)) {
+                    if (filled($validateCode) && filled($flag)) {
+                        $response = WebSpider::login($username, $password, $flag, $validateCode);
+                    } else $response = NoMoreValidateCode::getAndFuckIt($username, $password);
+                } else {
+                    $response = [
+                        "success" => true,
+                        "message" => "已从缓存中获取登录信息",
+                        "data" => ["token" => $token]
+                    ];
+                }
             } else {
+                InviteCode::clearCookie();
                 $response = [
-                    "success" => true,
-                    "message" => "已从缓存中获取登录信息",
-                    "data" => ["token" => $token]
+                    "success" => false,
+                    "message" => "您的邀请码不能用来登录此账号。",
+                    "data" => null,
+                    "reload" => true
                 ];
             }
-        } else {
-            InviteCode::clearCookie();
-            $response = [
-                "success" => false,
-                "message" => "您的邀请码不能用来登录此账号。",
-                "data" => null,
-                "reload" => true
-            ];
-        }
+        } else $response = [
+            "success" => false,
+            "message" => "请输入您的教育 ID"
+        ];
         if ($response["success"] === true) {
             $response["object"] = new self($response["data"]["token"]);
         } else $response["object"] = new self;
