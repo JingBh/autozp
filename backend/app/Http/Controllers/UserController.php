@@ -105,7 +105,7 @@ class UserController extends Controller
                 "schoolsemesterId", "gradeId", "classId"]);
             $response = $obj->getRank(null, $params);
         } else $response = $obj->getRank($grade);
-        return response()->json([true, $response]);
+        return response()->json($response);
     }
 
     public function records(Request $request) {

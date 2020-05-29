@@ -18,7 +18,7 @@
       <user-info></user-info>
       <b-tabs class="mt-3" content-class="mt-2" lazy>
         <b-tab title="记录" disabled></b-tab>
-        <b-tab title="排名" disabled></b-tab>
+        <b-tab title="排名"><rank-page></rank-page></b-tab>
         <b-tab title="上传" disabled></b-tab>
         <b-tab title="计划" disabled></b-tab>
       </b-tabs>
@@ -30,12 +30,14 @@
   import Logo from '~/components/Logo.vue'
   import LoginForm from '~/components/LoginForm.vue'
   import UserInfo from '~/components/UserInfo'
+  import RankPage from '~/components/Rank/Index'
 
   export default {
     components: {
       Logo,
       LoginForm,
       UserInfo,
+      RankPage
     },
     data() {
       return {

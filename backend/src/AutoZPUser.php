@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use App\Models\AutoZPUser as Model;
 use JingBh\AutoZP\Traits\StudentInfo;
+use Throwable;
 
 class AutoZPUser
 {
@@ -66,7 +67,7 @@ class AutoZPUser
                 $response = WebSpider::userInfo($this->token);
                 $this->userInfo = $response["data"];
                 if (filled($this->userInfo)) $this->userId = $this->userInfo["userNumber"];
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 $this->userInfo = null;
             }
         }
@@ -83,7 +84,7 @@ class AutoZPUser
             try {
                 $response = WebSpider::userScore($this->token);
                 $this->userInfo = $response["data"];
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 $this->userInfo = null;
             }
         }
@@ -150,11 +151,12 @@ class AutoZPUser
                 array_push($result, [
                     "id" => $item["userNumber"],
                     "name" => $item["name"],
-                    "score" => $item["rankScore"]
+                    "score" => $item["rankScore"],
+                    "count" => $item["rankCount"],
                 ]);
             }
             return $result;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return [];
         }
     }
@@ -190,7 +192,7 @@ class AutoZPUser
                     ]);
                 }
             return $result;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return [];
         }
     }
@@ -265,7 +267,7 @@ class AutoZPUser
      * @param string|null $flag
      * @param string|null $validateCode
      * @return array
-     * @throws \Throwable
+     * @throws Throwable
      */
     public static function login($username, $password, $flag=null, $validateCode=null) {
         if (filled($username)) {

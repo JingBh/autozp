@@ -95,7 +95,11 @@ export default {
       "icons": [
         {
           "src": "/favicon.ico",
-          "sizes": "32x32 64x64 128x128"
+          "sizes": "128x128"
+        },
+        {
+          "src": "/logo320.png",
+          "sizes": "320x320"
         }
       ]
     }

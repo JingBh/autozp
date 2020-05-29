@@ -27,7 +27,7 @@
             </b-input-group>
           </b-form-group>
           <b-form-group>
-            <b-form-checkbox value="yes" unchecked-value="no" v-model="form.remember">
+            <b-form-checkbox value="yes" unchecked-value="no" v-model="form.remember" switch>
               允许 AutoZP 存储密码
             </b-form-checkbox>
             <b-form-text class="small text-muted"><strong>一些高级功能需要存储密码才可用</strong>，详见用户协议。</b-form-text>
@@ -39,16 +39,20 @@
           </b-form-group>
           <p v-bind:class="loading ? 'text-info' : 'text-muted'"
              class="small mb-0">登录操作需要大约 10 秒的时间，请耐心等待。</p>
-          <p class="text-danger mb-0 mt-2" v-if="failed">登录失败：{{ failedReason }}<span></span></p>
-          <p class="text-success mb-0 mt-2" v-if="succeed">登录成功！</p>
+          <transition name="fadeDown">
+            <p class="text-danger mb-0 mt-2" v-if="failed">登录失败：{{ failedReason }}<span></span></p>
+            <p class="text-success mb-0 mt-2" v-if="succeed">登录成功！</p>
+          </transition>
         </b-form>
       </template>
       <template v-slot:modal-footer="{ cancel }">
         <b-button variant="secondary" v-on:click="cancel">取消</b-button>
-        <b-button variant="primary" v-if="form.agreeTerms === 'yes'" v-bind:disabled="loading" v-on:click="submit">
-          <span v-if="loading"><b-spinner small></b-spinner> 请稍候...</span>
-          <span v-else>登录</span>
-        </b-button>
+        <transition name="fadeRight">
+          <b-button variant="primary" v-if="form.agreeTerms === 'yes'" v-bind:disabled="loading" v-on:click="submit">
+            <span v-if="loading"><b-spinner small></b-spinner> 请稍候...</span>
+            <span v-else>登录</span>
+          </b-button>
+        </transition>
       </template>
     </b-modal>
   </div>
