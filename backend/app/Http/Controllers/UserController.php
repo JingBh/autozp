@@ -112,6 +112,6 @@ class UserController extends Controller
         $obj = AutoZPUser::getTokenFromSession();
         $params = $request->all();
         $response = $obj->getRecords($params);
-        return response()->json([true, $response]);
+        return response()->json($response);
     }
 }

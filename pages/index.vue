@@ -16,11 +16,11 @@
     </p>
     <div v-if="isLoggedIn">
       <user-info></user-info>
-      <b-tabs class="mt-3" content-class="mt-2" lazy>
-        <b-tab title="记录" disabled></b-tab>
+      <b-tabs class="mt-3" content-class="mt-2">
+        <b-tab title="记录" active><records-page></records-page></b-tab>
         <b-tab title="排名"><rank-page></rank-page></b-tab>
-        <b-tab title="上传" disabled></b-tab>
-        <b-tab title="计划" disabled></b-tab>
+        <b-tab title="上传" lazy disabled></b-tab>
+        <b-tab title="计划" lazy disabled></b-tab>
       </b-tabs>
     </div>
   </b-container>
@@ -31,13 +31,15 @@
   import LoginForm from '~/components/LoginForm.vue'
   import UserInfo from '~/components/UserInfo'
   import RankPage from '~/components/Rank/Index'
+  import RecordsPage from '~/components/Records/Index'
 
   export default {
     components: {
       Logo,
       LoginForm,
       UserInfo,
-      RankPage
+      RankPage,
+      RecordsPage,
     },
     data() {
       return {

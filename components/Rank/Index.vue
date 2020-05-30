@@ -27,7 +27,7 @@
     <div v-if="result">
       <hr>
       <div class="mb-2 text-right">
-        <b-form-input type="search" class="d-inline-block" style="max-width:15rem;" placeholder="搜索表格..."
+        <b-form-input type="search" class="d-inline-block" style="max-width:15rem;" placeholder="搜索数据..."
                       autocomplete="off" v-if="!loading" size="sm" v-model="table.filter"></b-form-input>
       </div>
       <b-table small hover responsive show-empty class="text-nowrap" primary-key="id" v-bind:filter="table.filter"
