@@ -79,9 +79,6 @@ export default {
     ]
   },
   pwa: {
-    workbox: {
-      preCaching: ["/offline"]
-    },
     manifest: {
       "name": "AutoZP - 一个极简综评客户端",
       "short_name": "AutoZP",
